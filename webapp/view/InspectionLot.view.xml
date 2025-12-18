@@ -24,7 +24,7 @@
             <Table id="inspectionLotTable" items="{/ZQM_INSPECTIONSet}" sticky="HeaderToolbar,ColumnHeaders">
                 <headerToolbar>
                     <OverflowToolbar>
-                        <Title text="Lots ({=${/ZQM_INSPECTIONSet}.length})" level="H2" />
+                        <Title text="Lots" level="H2" />
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
@@ -46,6 +46,9 @@
                     <Column minScreenWidth="Desktop" demandPopin="true">
                         <Text text="Date" />
                     </Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true">
+                        <Text text="UD Status" />
+                    </Column>
                     <Column hAlign="End">
                         <Text text="Actions" />
                     </Column>
@@ -54,14 +57,14 @@
                     <ColumnListItem type="Inactive">
                         <cells>
                             <Text text="{Prueflos}" />
-                            <Text text="{Matnr}" />
-                            <Text text="{Werks}" />
-                            <VBox>
-                                <Text text="{Art}" />
-                                <Text text="{Txt}" size="Tiny" />
-                            </VBox>
-                            <Text text="{total_qty} {uom}" />
-                            <Text text="{path: 'Entstehdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' }}" />
+                            <Text text="{MaterialNumber}" />
+                            <Text text="{Plant}" />
+                            <Text text="{InspectionType}" />
+                            <Text text="{LotQuantity} {Uom}" />
+                            <Text text="{path: 'CreatedDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' }}" />
+                            <ObjectStatus 
+                                text="{= ${UsageDecisionCode} ? (${UsageDecisionCode} === 'A' ? 'Approved' : 'Rejected') : 'Not Decided' }"
+                                state="{= ${UsageDecisionCode} ? (${UsageDecisionCode} === 'A' ? 'Success' : 'Error') : 'Warning' }" />
                             <HBox justifyContent="End">
                                 <Button icon="sap-icon://create-entry-time" tooltip="Record Results" press="onRecordResults" class="sapUiTinyMarginEnd" />
                                 <Button icon="sap-icon://decision" tooltip="Usage Decision" press="onUsageDecision" />

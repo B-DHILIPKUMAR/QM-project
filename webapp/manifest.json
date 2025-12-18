@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/sap/opu/odata/sap/ZMM_QM_877_ODATA_SRV_01/",
+        "uri": "/sap/opu/odata/SAP/ZMM_QM_877_ODATA_SRV_01/",
         "type": "OData",
         "settings": {
           "annotations": [],

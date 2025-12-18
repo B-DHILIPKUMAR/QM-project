@@ -8,30 +8,32 @@
         <content>
             <ObjectHeader
                 title="Inspection Lot: {/Prueflos}"
-                number="{/total_qty}"
-                numberUnit="{/uom}">
+                number="{/LotQuantity}"
+                numberUnit="{/Uom}">
                 <attributes>
-                    <ObjectAttribute title="Material" text="{/Matnr}" />
-                    <ObjectAttribute title="Plant" text="{/Werks}" />
+                    <ObjectAttribute title="Material" text="{/MaterialNumber}" />
+                    <ObjectAttribute title="Plant" text="{/Plant}" />
                 </attributes>
                 <statuses>
-                    <ObjectStatus text="{/UdStatus}" state="{= ${/UdStatus} === 'Not Decided' ? 'Warning' : (${/UdStatus} === 'Approved' ? 'Success' : 'Error') }" />
+                    <ObjectStatus 
+                        text="{= ${UsageDecisionCode} ? (${UsageDecisionCode} === 'A' ? 'Approved' : 'Rejected') : 'Not Decided' }"
+                        state="{= ${UsageDecisionCode} ? (${UsageDecisionCode} === 'A' ? 'Success' : 'Error') : 'Warning' }" />
                 </statuses>
             </ObjectHeader>
 
             <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Record Quantities" enabled="{/isEditable}">
                 <f:content>
                     <Label text="Unrestricted Stock" />
-                    <Input value="{/unrestricted_qty}" type="Number" />
+                    <Input value="{/UnrestrictedQty}" type="Number" />
                     
                     <Label text="Blocked Stock" />
-                    <Input value="{/blocked_qty}" type="Number" />
+                    <Input value="{/BlockedQty}" type="Number" />
 
                     <Label text="Production Stock" />
-                    <Input value="{/production_qty}" type="Number" />
+                    <Input value="{/ProductionQty}" type="Number" />
                     
                     <Label text="Remarks" />
-                    <TextArea value="{/remarks}" rows="3" />
+                    <TextArea value="{/Remarks}" rows="3" />
                 </f:content>
             </f:SimpleForm>
         </content>

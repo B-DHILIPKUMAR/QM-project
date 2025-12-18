@@ -16,7 +16,7 @@ sap.ui.define([
             var aFilters = [];
 
             if (sPlant) {
-                aFilters.push(new Filter("Werks", FilterOperator.Contains, sPlant));
+                aFilters.push(new Filter("Plant", FilterOperator.Contains, sPlant));
             }
             if (sLot) {
                 aFilters.push(new Filter("Prueflos", FilterOperator.Contains, sLot));

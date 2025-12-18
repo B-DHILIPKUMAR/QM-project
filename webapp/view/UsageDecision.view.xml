@@ -8,12 +8,12 @@
         <content>
             <ObjectHeader
                 title="Inspection Lot: {/Prueflos}"
-                number="{/total_qty}"
-                numberUnit="{/uom}">
+                number="{/LotQuantity}"
+                numberUnit="{/Uom}">
                 <attributes>
-                    <ObjectAttribute title="Material" text="{/Matnr}" />
-                    <ObjectAttribute title="Plant" text="{/Werks}" />
-                    <ObjectAttribute title="Inspected Qty" text="{/inspected_qty}" />
+                    <ObjectAttribute title="Material" text="{/MaterialNumber}" />
+                    <ObjectAttribute title="Plant" text="{/Plant}" />
+                    <ObjectAttribute title="Inspected Qty" text="{/InspectedQty}" />
                 </attributes>
             </ObjectHeader>
 
@@ -30,9 +30,9 @@
                 </f:content>
             </f:SimpleForm>
 
-            <VBox class="sapUiSmallMargin" visible="{= ${/inspected_qty} !== ${/total_qty} }">
+            <VBox class="sapUiSmallMargin" visible="{= ${/InspectedQty} !== ${/LotQuantity} }">
                 <MessageStrip
-                    text="Wait: Usage decision can only be made if Total Inspected Quantity ({/inspected_qty}) equals the Inspection Lot Quantity ({/total_qty})."
+                    text="Wait: Usage decision can only be made if Total Inspected Quantity ({/InspectedQty}) equals the Inspection Lot Quantity ({/LotQuantity})."
                     type="Error"
                     showIcon="true" />
             </VBox>
@@ -40,7 +40,7 @@
         <footer>
             <OverflowToolbar>
                 <ToolbarSpacer />
-                <Button text="Save Decision" type="Emphasized" press="onSaveDecision" enabled="{= ${/inspected_qty} === ${/total_qty} }" />
+                <Button text="Save Decision" type="Emphasized" press="onSaveDecision" enabled="{= ${/InspectedQty} === ${/LotQuantity} }" />
                 <Button text="Cancel" press="onNavBack" />
             </OverflowToolbar>
         </footer>

@@ -1,6 +1,7 @@
-<mvc:View controllerName="quality.quality.controller.app"
-    xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="quality.quality.controller.App"
     displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <App id="app" />
+    <App id="app">
+    </App>
 </mvc:View>

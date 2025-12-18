@@ -8,6 +8,12 @@ sap.ui.define([
 
     return Controller.extend("quality.quality.controller.InspectionLot", {
         onInit: function () {
+            console.log("InspectionLot Controller Initialized");
+            var oTable = this.byId("inspectionLotTable");
+            oTable.getBinding("items").attachDataReceived(function (oEvent) {
+                var oData = oEvent.getParameter("data");
+                console.log("Data Received:", oData);
+            });
         },
 
         onSearch: function () {

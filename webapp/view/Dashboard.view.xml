@@ -1,19 +1,20 @@
 <mvc:View
     controllerName="quality.quality.controller.Dashboard"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
     <Page title="Quality Engineer Dashboard">
         <headerContent>
             <Button icon="sap-icon://log" press="onLogout" tooltip="Logout" />
         </headerContent>
         <content>
             <HBox wrap="Wrap" class="sapUiSmallMargin">
-                <GenericTile class="sapUiTinyMargin" header="Inspection Lots" subheader="View and Manage" press="onNavigation" scope="Display">
+                <GenericTile class="sapUiTinyMargin" header="Inspection Lots" subheader="View and Manage" press="onNavigation">
                     <TileContent>
                         <ImageContent src="sap-icon://BusinessSuiteInAppSymbols/icon-inspection-lot" />
                     </TileContent>
                     <customData>
-                        <core:CustomData xmlns:core="sap.ui.core" key="route" value="InspectionLot" />
+                        <core:CustomData key="route" value="InspectionLot" />
                     </customData>
                 </GenericTile>
                 
@@ -22,7 +23,7 @@
                         <ImageContent src="sap-icon://create-entry-time" />
                     </TileContent>
                     <customData>
-                        <core:CustomData xmlns:core="sap.ui.core" key="route" value="InspectionLot" /> 
+                        <core:CustomData key="route" value="InspectionLot" /> 
                     </customData>
                 </GenericTile>
 
@@ -31,7 +32,7 @@
                         <ImageContent src="sap-icon://decision" />
                     </TileContent>
                     <customData>
-                        <core:CustomData xmlns:core="sap.ui.core" key="route" value="InspectionLot" />
+                        <core:CustomData key="route" value="InspectionLot" />
                     </customData>
                 </GenericTile>
             </HBox>

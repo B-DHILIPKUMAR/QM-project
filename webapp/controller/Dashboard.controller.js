@@ -8,8 +8,10 @@ sap.ui.define([
         },
 
         onNavigation: function (oEvent) {
-            var sRoute = oEvent.getSource().getCustomData()[0].getValue();
-            this.getOwnerComponent().getRouter().navTo(sRoute);
+            var sRoute = oEvent.getSource().data("route");
+            if (sRoute) {
+                this.getOwnerComponent().getRouter().navTo(sRoute);
+            }
         },
 
         onLogout: function () {

@@ -43,7 +43,7 @@ sap.ui.define([
             var oView = this.getView();
 
             // Strict validation check again just in case
-            if (parseFloat(oData.inspected_qty) !== parseFloat(oData.total_qty)) {
+            if (parseFloat(oData.InspectedQty) !== parseFloat(oData.LotQuantity)) {
                 MessageBox.error("Total Inspected Quantity must match Lot Quantity.");
                 return;
             }

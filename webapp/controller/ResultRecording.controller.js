@@ -30,8 +30,8 @@ sap.ui.define([
             oModel.read(sPath, {
                 success: function (oData) {
                     oView.setBusy(false);
-                    // Determine editability: if UD status is not "Not Decided", make it read-only
-                    var bIsEditable = oData.UdStatus === "Not Decided" || !oData.UdStatus;
+                    // Determine editability: if Status is 'X', it might mean locked/decided
+                    var bIsEditable = oData.Status !== "X";
                     oData.isEditable = bIsEditable;
 
                     var oLocalModel = new JSONModel(oData);
@@ -52,13 +52,12 @@ sap.ui.define([
             oView.setBusy(true);
 
             // Prepare payload for update/create
-            // Assuming ZQM_RESULTSet has properties for these
             var oPayload = {
                 Prueflos: oData.Prueflos,
-                unrestricted_qty: oData.unrestricted_qty,
-                blocked_qty: oData.blocked_qty,
-                production_qty: oData.production_qty,
-                remarks: oData.remarks
+                UnrestrictedQty: oData.UnrestrictedQty,
+                BlockedQty: oData.BlockedQty,
+                ProductionQty: oData.ProductionQty,
+                Remarks: oData.Remarks
             };
 
             oModel.update("/ZQM_RESULTSet('" + oData.Prueflos + "')", oPayload, {

@@ -1,0 +1,63 @@
+<mvc:View
+    controllerName="quality.quality.controller.UsageList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core">
+    <Page title="Usage Decision - List" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <fb:FilterBar id="filterbar" persistencyKey="PKeyUsage" useToolbar="false" search=".onSearch">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem name="Plant" label="Plant" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="filterPlant" placeholder="Enter Plant" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem name="LotNumber" label="Inspection Lot" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="filterLot" placeholder="Enter Lot Number" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+
+            <Table id="usageTable" items="{/ZQM_USAGESet}" sticky="HeaderToolbar,ColumnHeaders">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Usage Decisions" level="H2" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Lot Number" />
+                    </Column>
+                    <Column>
+                        <Text text="Material" />
+                    </Column>
+                    <Column>
+                        <Text text="Plant" />
+                    </Column>
+                    <Column>
+                        <Text text="UD Code" />
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="Action" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{Prueflos}" />
+                            <Text text="{MaterialNumber}" />
+                            <Text text="{Plant}" />
+                            <ObjectStatus 
+                                text="{= ${UdCode} === 'A' ? 'Approved' : (${UdCode} === 'R' ? 'Rejected' : 'Pending') }" 
+                                state="{= ${UdCode} === 'A' ? 'Success' : (${UdCode} === 'R' ? 'Error' : 'Warning') }" />
+                            <Button icon="sap-icon://display" press="onViewUsage" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

@@ -6,7 +6,7 @@ sap.ui.define([
 ], function (Controller, Filter, FilterOperator, History) {
     "use strict";
 
-    return Controller.extend("quality.quality.controller.InspectionLot", {
+    return Controller.extend("quality.quality.controller.UsageList", {
         onInit: function () {
         },
 
@@ -22,21 +22,13 @@ sap.ui.define([
                 aFilters.push(new Filter("Prueflos", FilterOperator.Contains, sLot));
             }
 
-            var oTable = this.byId("inspectionLotTable");
+            var oTable = this.byId("usageTable");
             var oBinding = oTable.getBinding("items");
             oBinding.filter(aFilters);
         },
 
-        onRecordResults: function (oEvent) {
-            var oItem = oEvent.getSource().getParent().getParent();
-            var sPrueflos = oItem.getBindingContext().getProperty("Prueflos");
-            this.getOwnerComponent().getRouter().navTo("ResultRecording", {
-                Prueflos: sPrueflos
-            });
-        },
-
-        onUsageDecision: function (oEvent) {
-            var oItem = oEvent.getSource().getParent().getParent();
+        onViewUsage: function (oEvent) {
+            var oItem = oEvent.getSource().getParent();
             var sPrueflos = oItem.getBindingContext().getProperty("Prueflos");
             this.getOwnerComponent().getRouter().navTo("UsageDecision", {
                 Prueflos: sPrueflos

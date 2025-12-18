@@ -8,30 +8,40 @@
         <content>
             <ObjectHeader
                 title="Inspection Lot: {/Prueflos}"
-                number="{/total_qty}"
-                numberUnit="{/uom}">
+                number="{/MaterialNumber}"
+                numberUnit="Material">
                 <attributes>
-                    <ObjectAttribute title="Material" text="{/Matnr}" />
-                    <ObjectAttribute title="Plant" text="{/Werks}" />
+                    <ObjectAttribute title="Plant" text="{/Plant}" />
+                    <ObjectAttribute title="Inspection Type" text="{/InspectionType}" />
+                    <ObjectAttribute title="Operation" text="{/OperationNo}" />
+                    <ObjectAttribute title="Characteristic" text="{/CharacteristicNo}" />
                 </attributes>
                 <statuses>
-                    <ObjectStatus text="{/UdStatus}" state="{= ${/UdStatus} === 'Not Decided' ? 'Warning' : (${/UdStatus} === 'Approved' ? 'Success' : 'Error') }" />
+                    <ObjectStatus title="Status" text="{/Status}" state="None" />
+                    <ObjectStatus title="Result Code" text="{/ResultCode}" state="Information" />
                 </statuses>
             </ObjectHeader>
 
             <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Record Quantities" enabled="{/isEditable}">
                 <f:content>
+                    <core:Title text="Reference Data" />
+                    <Label text="Object Number" />
+                    <Text text="{/ObjectNumber}" />
+                    <Label text="Object Type" />
+                    <Text text="{/ObjectType}" />
+
+                    <core:Title text="Enter Results" />
                     <Label text="Unrestricted Stock" />
-                    <Input value="{/unrestricted_qty}" type="Number" />
+                    <Input value="{/UnrestrictedQty}" type="Number" />
                     
                     <Label text="Blocked Stock" />
-                    <Input value="{/blocked_qty}" type="Number" />
+                    <Input value="{/BlockedQty}" type="Number" />
 
                     <Label text="Production Stock" />
-                    <Input value="{/production_qty}" type="Number" />
+                    <Input value="{/ProductionQty}" type="Number" />
                     
                     <Label text="Remarks" />
-                    <TextArea value="{/remarks}" rows="3" />
+                    <TextArea value="{/Remarks}" rows="3" />
                 </f:content>
             </f:SimpleForm>
         </content>

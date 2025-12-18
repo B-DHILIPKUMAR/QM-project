@@ -23,7 +23,7 @@
                         <ImageContent src="sap-icon://create-entry-time" />
                     </TileContent>
                     <customData>
-                        <core:CustomData key="route" value="InspectionLot" /> 
+                        <core:CustomData key="route" value="ResultRecordingList" /> 
                     </customData>
                 </GenericTile>
 
@@ -32,7 +32,7 @@
                         <ImageContent src="sap-icon://decision" />
                     </TileContent>
                     <customData>
-                        <core:CustomData key="route" value="InspectionLot" />
+                        <core:CustomData key="route" value="UsageDecisionList" />
                     </customData>
                 </GenericTile>
             </HBox>

@@ -1,6 +1,7 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], function (Controller) {
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageToast"
+], function (Controller, MessageToast) {
     "use strict";
 
     return Controller.extend("quality.quality.controller.Dashboard", {
@@ -8,9 +9,22 @@ sap.ui.define([
         },
 
         onNavigation: function (oEvent) {
-            var sRoute = oEvent.getSource().data("route");
+            var oSource = oEvent.getSource();
+            var sRoute = "";
+
+            // Fallback for data() or getCustomData()
+            if (oSource.data("route")) {
+                sRoute = oSource.data("route");
+            } else {
+                var aCustomData = oSource.getCustomData();
+                if (aCustomData && aCustomData.length > 0) {
+                    sRoute = aCustomData[0].getValue();
+                }
+            }
+
             if (sRoute) {
-                this.getOwnerComponent().getRouter().navTo(sRoute);
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo(sRoute);
             }
         },
 

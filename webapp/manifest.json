@@ -104,7 +104,7 @@
       "config": {
         "routerClass": "sap.m.routing.Router",
         "controlAggregation": "pages",
-        "controlId": "App",
+        "controlId": "app",
         "transition": "slide",
         "type": "View",
         "viewType": "XML",

@@ -8,21 +8,29 @@
         <content>
             <ObjectHeader
                 title="Inspection Lot: {/Prueflos}"
-                number="{/LotQuantity}"
-                numberUnit="{/Uom}">
+                number="{/MaterialNumber}"
+                numberUnit="Material">
                 <attributes>
-                    <ObjectAttribute title="Material" text="{/MaterialNumber}" />
                     <ObjectAttribute title="Plant" text="{/Plant}" />
+                    <ObjectAttribute title="Inspection Type" text="{/InspectionType}" />
+                    <ObjectAttribute title="Operation" text="{/OperationNo}" />
+                    <ObjectAttribute title="Characteristic" text="{/CharacteristicNo}" />
                 </attributes>
                 <statuses>
-                    <ObjectStatus 
-                        text="{= ${UsageDecisionCode} ? (${UsageDecisionCode} === 'A' ? 'Approved' : 'Rejected') : 'Not Decided' }"
-                        state="{= ${UsageDecisionCode} ? (${UsageDecisionCode} === 'A' ? 'Success' : 'Error') : 'Warning' }" />
+                    <ObjectStatus title="Status" text="{/Status}" state="None" />
+                    <ObjectStatus title="Result Code" text="{/ResultCode}" state="Information" />
                 </statuses>
             </ObjectHeader>
 
             <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Record Quantities" enabled="{/isEditable}">
                 <f:content>
+                    <core:Title text="Reference Data" />
+                    <Label text="Object Number" />
+                    <Text text="{/ObjectNumber}" />
+                    <Label text="Object Type" />
+                    <Text text="{/ObjectType}" />
+
+                    <core:Title text="Enter Results" />
                     <Label text="Unrestricted Stock" />
                     <Input value="{/UnrestrictedQty}" type="Number" />
                     

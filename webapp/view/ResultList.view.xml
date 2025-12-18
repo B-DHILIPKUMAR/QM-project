@@ -1,0 +1,65 @@
+<mvc:View
+    controllerName="quality.quality.controller.ResultList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core">
+    <Page title="Result Recording - List" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <fb:FilterBar id="filterbar" persistencyKey="PKeyResult" useToolbar="false" search=".onSearch">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem name="Plant" label="Plant" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="filterPlant" placeholder="Enter Plant" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem name="LotNumber" label="Inspection Lot" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="filterLot" placeholder="Enter Lot Number" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+
+            <Table id="resultTable" items="{/ZQM_RESULTSet}" sticky="HeaderToolbar,ColumnHeaders">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Results" level="H2" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Lot Number" />
+                    </Column>
+                    <Column>
+                        <Text text="Material" />
+                    </Column>
+                    <Column>
+                        <Text text="Operation" />
+                    </Column>
+                    <Column>
+                        <Text text="Characteristic" />
+                    </Column>
+                    <Column>
+                        <Text text="Status" />
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="Action" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{Prueflos}" />
+                            <Text text="{MaterialNumber}" />
+                            <Text text="{OperationNo}" />
+                            <Text text="{CharacteristicNo}" />
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'X' ? 'Success' : 'Warning' }" />
+                            <Button icon="sap-icon://edit" press="onEditResult" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

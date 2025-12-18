@@ -30,9 +30,8 @@ sap.ui.define([
             oModel.read(sPath, {
                 success: function (oData) {
                     oView.setBusy(false);
-                    // Determine editability: if UD status is not "Not Decided", make it read-only
-                    // Determine editability: if UD status is not empty/Not Decided, make it read-only
-                    var bIsEditable = !oData.UsageDecisionCode;
+                    // Determine editability: if Status is 'X', it might mean locked/decided
+                    var bIsEditable = oData.Status !== "X";
                     oData.isEditable = bIsEditable;
 
                     var oLocalModel = new JSONModel(oData);

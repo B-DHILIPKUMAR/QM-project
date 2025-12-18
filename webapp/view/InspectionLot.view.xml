@@ -4,9 +4,9 @@
     xmlns="sap.m"
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:core="sap.ui.core">
-    <Page title="Inspection Lots" showNavButton="true" navButtonPress="onNavBack">
+    <Page id="inspectionLotPage" title="Inspection Lots" showNavButton="true" navButtonPress="onNavBack">
         <content>
-            <fb:FilterBar id="filterbar" persistencyKey="PKeyLot" useToolbar="false" search=".onSearch" filterContainerWidth="auto">
+            <fb:FilterBar id="filterbar" persistencyKey="PKeyLot" useToolbar="false" search=".onSearch">
                 <fb:filterGroupItems>
                     <fb:FilterGroupItem name="Plant" label="Plant" groupName="Group1" visibleInFilterBar="true">
                         <fb:control>

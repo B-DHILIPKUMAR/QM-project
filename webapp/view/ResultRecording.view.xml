@@ -1,0 +1,46 @@
+<mvc:View
+    controllerName="quality.quality.controller.ResultRecording"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Page title="Result Recording: {/Prueflos}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <ObjectHeader
+                title="Inspection Lot: {/Prueflos}"
+                number="{/total_qty}"
+                numberUnit="{/uom}">
+                <attributes>
+                    <ObjectAttribute title="Material" text="{/Matnr}" />
+                    <ObjectAttribute title="Plant" text="{/Werks}" />
+                </attributes>
+                <statuses>
+                    <ObjectStatus text="{/UdStatus}" state="{= ${/UdStatus} === 'Not Decided' ? 'Warning' : (${/UdStatus} === 'Approved' ? 'Success' : 'Error') }" />
+                </statuses>
+            </ObjectHeader>
+
+            <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Record Quantities" enabled="{/isEditable}">
+                <f:content>
+                    <Label text="Unrestricted Stock" />
+                    <Input value="{/unrestricted_qty}" type="Number" />
+                    
+                    <Label text="Blocked Stock" />
+                    <Input value="{/blocked_qty}" type="Number" />
+
+                    <Label text="Production Stock" />
+                    <Input value="{/production_qty}" type="Number" />
+                    
+                    <Label text="Remarks" />
+                    <TextArea value="{/remarks}" rows="3" />
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button text="Save" type="Emphasized" press="onSave" enabled="{/isEditable}" />
+                <Button text="Cancel" press="onNavBack" />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

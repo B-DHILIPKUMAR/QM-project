@@ -76,10 +76,12 @@
           "bundleName": "quality.quality.i18n.i18n"
         }
       },
-      "": {
-        "dataSource": "mainService",
-        "preload": true,
-        "settings": {}
+      "userModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {
+          "UserId": "",
+          "isLoggedIn": false
+        }
       }
     },
     "resources": {
@@ -103,17 +105,61 @@
       },
       "routes": [
         {
-          "name": "Routeapp",
-          "pattern": ":?query:",
+          "name": "Login",
+          "pattern": "",
           "target": [
-            "Targetapp"
+            "Login"
+          ]
+        },
+        {
+          "name": "Dashboard",
+          "pattern": "Dashboard",
+          "target": [
+            "Dashboard"
+          ]
+        },
+        {
+          "name": "InspectionLot",
+          "pattern": "InspectionLot",
+          "target": [
+            "InspectionLot"
+          ]
+        },
+        {
+          "name": "ResultRecording",
+          "pattern": "ResultRecording/{Prueflos}",
+          "target": [
+            "ResultRecording"
+          ]
+        },
+        {
+          "name": "UsageDecision",
+          "pattern": "UsageDecision/{Prueflos}",
+          "target": [
+            "UsageDecision"
           ]
         }
       ],
       "targets": {
-        "Targetapp": {
-          "id": "app",
-          "name": "app"
+        "Login": {
+          "id": "Login",
+          "name": "Login"
+        },
+        "Dashboard": {
+          "id": "Dashboard",
+          "name": "Dashboard"
+        },
+        "InspectionLot": {
+          "id": "InspectionLot",
+          "name": "InspectionLot"
+        },
+        "ResultRecording": {
+          "id": "ResultRecording",
+          "name": "ResultRecording"
+        },
+        "UsageDecision": {
+          "id": "UsageDecision",
+          "name": "UsageDecision"
         }
       }
     },

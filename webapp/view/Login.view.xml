@@ -1,0 +1,30 @@
+<mvc:View
+    controllerName="quality.quality.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <App>
+        <pages>
+            <Page title="{i18n>loginTitle}" showHeader="false">
+                <content>
+                    <VBox justifyContent="Center" alignItems="Center" height="100%">
+                        <VBox class="sapUiSmallMargin loginBox" width="400px">
+                            <Title text="Quality Management Portal" level="H1" titleStyle="H1" class="sapUiSmallMarginBottom" />
+                            <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                                <f:content>
+                                    <Label text="User ID" required="true" />
+                                    <Input id="userId" value="{/UserId}" placeholder="Enter User ID" />
+                                    <Label text="Password" required="true" />
+                                    <Input id="password" type="Password" placeholder="Enter Password" />
+                                </f:content>
+                            </f:SimpleForm>
+                            <Button text="Login" type="Emphasized" press="onLogin" width="100%" class="sapUiSmallMarginTop" />
+                        </VBox>
+                    </VBox>
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

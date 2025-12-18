@@ -1,0 +1,75 @@
+<mvc:View
+    controllerName="quality.quality.controller.InspectionLot"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core">
+    <Page title="Inspection Lots" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <fb:FilterBar id="filterbar" persistencyKey="PKeyLot" useToolbar="false" search=".onSearch" filterContainerWidth="auto">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem name="Plant" label="Plant" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="filterPlant" placeholder="Enter Plant" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem name="LotNumber" label="Inspection Lot" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="filterLot" placeholder="Enter Lot Number" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+
+            <Table id="inspectionLotTable" items="{/ZQM_INSPECTIONSet}" sticky="HeaderToolbar,ColumnHeaders">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Lots ({=${/ZQM_INSPECTIONSet}.length})" level="H2" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Lot Number" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Material" />
+                    </Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true">
+                        <Text text="Plant" />
+                    </Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true">
+                        <Text text="Type" />
+                    </Column>
+                    <Column>
+                        <Text text="Quantity" />
+                    </Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true">
+                        <Text text="Date" />
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="Actions" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Inactive">
+                        <cells>
+                            <Text text="{Prueflos}" />
+                            <Text text="{Matnr}" />
+                            <Text text="{Werks}" />
+                            <VBox>
+                                <Text text="{Art}" />
+                                <Text text="{Txt}" size="Tiny" />
+                            </VBox>
+                            <Text text="{total_qty} {uom}" />
+                            <Text text="{path: 'Entstehdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' }}" />
+                            <HBox justifyContent="End">
+                                <Button icon="sap-icon://create-entry-time" tooltip="Record Results" press="onRecordResults" class="sapUiTinyMarginEnd" />
+                                <Button icon="sap-icon://decision" tooltip="Usage Decision" press="onUsageDecision" />
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

@@ -82,6 +82,13 @@
           "UserId": "",
           "isLoggedIn": false
         }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay"
+        }
       }
     },
     "resources": {

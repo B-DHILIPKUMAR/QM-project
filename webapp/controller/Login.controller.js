@@ -8,13 +8,18 @@ sap.ui.define([
 
     return Controller.extend("quality.quality.controller.Login", {
         onInit: function () {
-            // Initialize local model for login inputs if needed, or use the one from manifest
+            var oLoginModel = new JSONModel({
+                UserId: "",
+                Password: ""
+            });
+            this.getView().setModel(oLoginModel, "loginModel");
         },
 
         onLogin: function () {
             var oView = this.getView();
-            var sUserId = oView.byId("userId").getValue();
-            var sPassword = oView.byId("password").getValue();
+            var oLoginData = oView.getModel("loginModel").getData();
+            var sUserId = oLoginData.UserId;
+            var sPassword = oLoginData.Password;
 
             if (!sUserId || !sPassword) {
                 MessageToast.show("Please enter both User ID and Password.");

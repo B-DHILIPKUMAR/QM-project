@@ -15,9 +15,9 @@
                             <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
                                 <f:content>
                                     <Label text="User ID" required="true" />
-                                    <Input id="userId" value="{/UserId}" placeholder="Enter User ID" />
+                                    <Input id="userId" value="{loginModel>/UserId}" placeholder="Enter User ID" />
                                     <Label text="Password" required="true" />
-                                    <Input id="password" type="Password" placeholder="Enter Password" />
+                                    <Input id="password" type="Password" value="{loginModel>/Password}" placeholder="Enter Password" />
                                 </f:content>
                             </f:SimpleForm>
                             <Button text="Login" type="Emphasized" press="onLogin" width="100%" class="sapUiSmallMarginTop" />

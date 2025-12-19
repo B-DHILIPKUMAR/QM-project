@@ -24,6 +24,12 @@ sap.ui.define([
         loadData: function (sPrueflos, sPlant) {
             var oModel = this.getOwnerComponent().getModel();
             var oView = this.getView();
+
+            // Clear previous data
+            oView.setModel(new JSONModel({}), "");
+
+            MessageToast.show("Fetching UD: " + sPrueflos + " (" + sPlant + ")");
+
             var aFilters = [
                 new Filter("Prueflos", FilterOperator.EQ, sPrueflos),
                 new Filter("Plant", FilterOperator.EQ, sPlant)

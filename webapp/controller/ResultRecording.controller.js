@@ -28,6 +28,13 @@ sap.ui.define([
         loadData: function (sPrueflos, sPlant) {
             var oModel = this.getOwnerComponent().getModel();
             var oView = this.getView();
+
+            // Clear current data so user sees it's loading fresh
+            oView.setModel(new JSONModel({}), "unnamed");
+            oView.setModel(new JSONModel({}), "");
+
+            MessageToast.show("Fetching Log: " + sPrueflos + " (" + sPlant + ")");
+
             var aFilters = [
                 new Filter("Prueflos", FilterOperator.EQ, sPrueflos),
                 new Filter("Plant", FilterOperator.EQ, sPlant)

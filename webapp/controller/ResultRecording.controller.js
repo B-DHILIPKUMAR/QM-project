@@ -3,8 +3,10 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/core/routing/History"
-], function (Controller, MessageToast, MessageBox, JSONModel, History) {
+    "sap/ui/core/routing/History",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], function (Controller, MessageToast, MessageBox, JSONModel, History, Filter, FilterOperator) {
     "use strict";
 
     return Controller.extend("quality.quality.controller.ResultRecording", {
@@ -24,18 +26,25 @@ sap.ui.define([
         loadData: function (sPrueflos) {
             var oModel = this.getOwnerComponent().getModel();
             var oView = this.getView();
-            var sPath = "/ZQM_RESULTSet('" + sPrueflos + "')";
+            var aFilters = [new Filter("Prueflos", FilterOperator.EQ, sPrueflos)];
 
             oView.setBusy(true);
-            oModel.read(sPath, {
+            oModel.read("/ZQM_RESULTSet", {
+                filters: aFilters,
                 success: function (oData) {
                     oView.setBusy(false);
-                    // Determine editability: if Status is 'X', it might mean locked/decided
-                    var bIsEditable = oData.Status !== "X";
-                    oData.isEditable = bIsEditable;
+                    var oRecord = oData.results && oData.results.length > 0 ? oData.results[0] : null;
 
-                    var oLocalModel = new JSONModel(oData);
-                    oView.setModel(oLocalModel);
+                    if (oRecord) {
+                        // Determine editability: if Status is 'X', it might mean locked/decided
+                        var bIsEditable = oRecord.Status !== "X";
+                        oRecord.isEditable = bIsEditable;
+
+                        var oLocalModel = new JSONModel(oRecord);
+                        oView.setModel(oLocalModel);
+                    } else {
+                        MessageBox.error("No record found for Lot: " + sPrueflos);
+                    }
                 },
                 error: function (oError) {
                     oView.setBusy(false);

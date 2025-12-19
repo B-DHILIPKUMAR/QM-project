@@ -3,8 +3,10 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/core/routing/History"
-], function (Controller, MessageToast, MessageBox, JSONModel, History) {
+    "sap/ui/core/routing/History",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], function (Controller, MessageToast, MessageBox, JSONModel, History, Filter, FilterOperator) {
     "use strict";
 
     return Controller.extend("quality.quality.controller.UsageDecision", {
@@ -21,14 +23,21 @@ sap.ui.define([
         loadData: function (sPrueflos) {
             var oModel = this.getOwnerComponent().getModel();
             var oView = this.getView();
-            var sPath = "/ZQM_USAGESet('" + sPrueflos + "')";
+            var aFilters = [new Filter("Prueflos", FilterOperator.EQ, sPrueflos)];
 
             oView.setBusy(true);
-            oModel.read(sPath, {
+            oModel.read("/ZQM_USAGESet", {
+                filters: aFilters,
                 success: function (oData) {
                     oView.setBusy(false);
-                    var oLocalModel = new JSONModel(oData);
-                    oView.setModel(oLocalModel);
+                    var oRecord = oData.results && oData.results.length > 0 ? oData.results[0] : null;
+
+                    if (oRecord) {
+                        var oLocalModel = new JSONModel(oRecord);
+                        oView.setModel(oLocalModel);
+                    } else {
+                        MessageBox.error("No usage decision data found for Lot: " + sPrueflos);
+                    }
                 },
                 error: function (oError) {
                     oView.setBusy(false);

@@ -59,12 +59,47 @@ sap.ui.define([
                         var oLocalModel = new JSONModel(oRecord);
                         oView.setModel(oLocalModel);
                     } else {
-                        MessageBox.error("No usage decision data found for Lot: " + sPrueflos);
+                        // Fallback: Fetch basic info from Inspection Lot header
+                        this._fetchLotHeaderInfo(sPrueflos, sPlant);
                     }
-                },
+                }.bind(this),
                 error: function (oError) {
                     oView.setBusy(false);
-                    MessageBox.error("Failed to fetch UD details for Lot: " + sPrueflos);
+                    this._fetchLotHeaderInfo(sPrueflos, sPlant);
+                }.bind(this)
+            });
+        },
+
+        _fetchLotHeaderInfo: function (sPrueflos, sPlant) {
+            var oModel = this.getOwnerComponent().getModel();
+            var oView = this.getView();
+            var aFilters = [
+                new Filter("Prueflos", FilterOperator.EQ, sPrueflos),
+                new Filter("Plant", FilterOperator.EQ, sPlant)
+            ];
+
+            oModel.read("/ZQM_INSPECTIONSet", {
+                filters: aFilters,
+                success: function (oData) {
+                    oView.setBusy(false);
+                    var oLot = oData.results && oData.results.length > 0 ? oData.results[0] : null;
+                    if (oLot) {
+                        var oNewRecord = {
+                            Prueflos: oLot.Prueflos,
+                            MaterialNumber: oLot.MaterialNumber,
+                            Plant: oLot.Plant,
+                            LotQuantity: oLot.LotQuantity,
+                            InspectedQty: "0",
+                            Uom: oLot.Uom
+                        };
+                        oView.setModel(new JSONModel(oNewRecord));
+                    } else {
+                        MessageBox.error("Lot " + sPrueflos + " not found in system.");
+                    }
+                },
+                error: function () {
+                    oView.setBusy(false);
+                    MessageBox.error("Failed to fetch Lot details for: " + sPrueflos);
                 }
             });
         },

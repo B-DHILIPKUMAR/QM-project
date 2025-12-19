@@ -70,12 +70,51 @@ sap.ui.define([
                         var oLocalModel = new JSONModel(oRecord);
                         oView.setModel(oLocalModel);
                     } else {
-                        MessageBox.error("No record found matching Lot: " + sPrueflos + " in the returned results.");
+                        // Fallback: Fetch basic info from Inspection Lot header
+                        this._fetchLotHeaderInfo(sPrueflos, sPlant);
                     }
-                },
+                }.bind(this),
                 error: function (oError) {
                     oView.setBusy(false);
-                    MessageBox.error("Failed to fetch results for Lot: " + sPrueflos);
+                    this._fetchLotHeaderInfo(sPrueflos, sPlant);
+                }.bind(this)
+            });
+        },
+
+        _fetchLotHeaderInfo: function (sPrueflos, sPlant) {
+            var oModel = this.getOwnerComponent().getModel();
+            var oView = this.getView();
+            var aFilters = [
+                new Filter("Prueflos", FilterOperator.EQ, sPrueflos),
+                new Filter("Plant", FilterOperator.EQ, sPlant)
+            ];
+
+            oModel.read("/ZQM_INSPECTIONSet", {
+                filters: aFilters,
+                success: function (oData) {
+                    oView.setBusy(false);
+                    var oLot = oData.results && oData.results.length > 0 ? oData.results[0] : null;
+                    if (oLot) {
+                        // Map inspection lot fields to result format for display
+                        var oNewRecord = {
+                            Prueflos: oLot.Prueflos,
+                            MaterialNumber: oLot.MaterialNumber,
+                            Plant: oLot.Plant,
+                            InspectionType: oLot.InspectionType,
+                            isEditable: true,
+                            Status: "New",
+                            OperationNo: "N/A",
+                            CharacteristicNo: "N/A"
+                        };
+                        oView.setModel(new JSONModel(oNewRecord));
+                        MessageToast.show("New recording started for Lot: " + sPrueflos);
+                    } else {
+                        MessageBox.error("Lot " + sPrueflos + " not found in system.");
+                    }
+                },
+                error: function () {
+                    oView.setBusy(false);
+                    MessageBox.error("Failed to fetch Lot details for: " + sPrueflos);
                 }
             });
         },

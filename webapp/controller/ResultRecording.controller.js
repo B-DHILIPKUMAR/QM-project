@@ -19,14 +19,19 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             var sPrueflos = oEvent.getParameter("arguments").Prueflos;
+            var sPlant = oEvent.getParameter("arguments").Plant;
             this._sPrueflos = sPrueflos;
-            this.loadData(sPrueflos);
+            this._sPlant = sPlant;
+            this.loadData(sPrueflos, sPlant);
         },
 
-        loadData: function (sPrueflos) {
+        loadData: function (sPrueflos, sPlant) {
             var oModel = this.getOwnerComponent().getModel();
             var oView = this.getView();
-            var aFilters = [new Filter("Prueflos", FilterOperator.EQ, sPrueflos)];
+            var aFilters = [
+                new Filter("Prueflos", FilterOperator.EQ, sPrueflos),
+                new Filter("Plant", FilterOperator.EQ, sPlant)
+            ];
 
             oView.setBusy(true);
             oModel.read("/ZQM_RESULTSet", {
@@ -43,7 +48,7 @@ sap.ui.define([
                         var oLocalModel = new JSONModel(oRecord);
                         oView.setModel(oLocalModel);
                     } else {
-                        MessageBox.error("No record found for Lot: " + sPrueflos);
+                        MessageBox.error("No record found for Lot: " + sPrueflos + " and Plant: " + sPlant);
                     }
                 },
                 error: function (oError) {

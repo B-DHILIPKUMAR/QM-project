@@ -17,13 +17,17 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             var sPrueflos = oEvent.getParameter("arguments").Prueflos;
-            this.loadData(sPrueflos);
+            var sPlant = oEvent.getParameter("arguments").Plant;
+            this.loadData(sPrueflos, sPlant);
         },
 
-        loadData: function (sPrueflos) {
+        loadData: function (sPrueflos, sPlant) {
             var oModel = this.getOwnerComponent().getModel();
             var oView = this.getView();
-            var aFilters = [new Filter("Prueflos", FilterOperator.EQ, sPrueflos)];
+            var aFilters = [
+                new Filter("Prueflos", FilterOperator.EQ, sPrueflos),
+                new Filter("Plant", FilterOperator.EQ, sPlant)
+            ];
 
             oView.setBusy(true);
             oModel.read("/ZQM_USAGESet", {
@@ -36,7 +40,7 @@ sap.ui.define([
                         var oLocalModel = new JSONModel(oRecord);
                         oView.setModel(oLocalModel);
                     } else {
-                        MessageBox.error("No usage decision data found for Lot: " + sPrueflos);
+                        MessageBox.error("No usage decision data found for Lot: " + sPrueflos + " and Plant: " + sPlant);
                     }
                 },
                 error: function (oError) {

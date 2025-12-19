@@ -150,14 +150,14 @@
         },
         {
           "name": "ResultRecording",
-          "pattern": "ResultRecording/{Prueflos}",
+          "pattern": "ResultRecording/{Prueflos}/{Plant}",
           "target": [
             "ResultRecording"
           ]
         },
         {
           "name": "UsageDecision",
-          "pattern": "UsageDecision/{Prueflos}",
+          "pattern": "UsageDecision/{Prueflos}/{Plant}",
           "target": [
             "UsageDecision"
           ]

@@ -30,16 +30,20 @@ sap.ui.define([
         onRecordResults: function (oEvent) {
             var oItem = oEvent.getSource().getParent().getParent();
             var sPrueflos = oItem.getBindingContext().getProperty("Prueflos");
+            var sPlant = oItem.getBindingContext().getProperty("Plant");
             this.getOwnerComponent().getRouter().navTo("ResultRecording", {
-                Prueflos: sPrueflos
+                Prueflos: sPrueflos,
+                Plant: sPlant
             });
         },
 
         onUsageDecision: function (oEvent) {
             var oItem = oEvent.getSource().getParent().getParent();
             var sPrueflos = oItem.getBindingContext().getProperty("Prueflos");
+            var sPlant = oItem.getBindingContext().getProperty("Plant");
             this.getOwnerComponent().getRouter().navTo("UsageDecision", {
-                Prueflos: sPrueflos
+                Prueflos: sPrueflos,
+                Plant: sPlant
             });
         },
 

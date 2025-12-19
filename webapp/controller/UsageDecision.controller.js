@@ -82,7 +82,15 @@ sap.ui.define([
                 filters: aFilters,
                 success: function (oData) {
                     oView.setBusy(false);
-                    var oLot = oData.results && oData.results.length > 0 ? oData.results[0] : null;
+                    var aResults = oData.results || [];
+                    var oLot = null;
+
+                    if (aResults.length > 0) {
+                        oLot = aResults.find(function (r) {
+                            return r.Prueflos === sPrueflos;
+                        });
+                    }
+
                     if (oLot) {
                         var oNewRecord = {
                             Prueflos: oLot.Prueflos,

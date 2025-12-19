@@ -40,13 +40,26 @@ sap.ui.define([
                 filters: aFilters,
                 success: function (oData) {
                     oView.setBusy(false);
-                    var oRecord = oData.results && oData.results.length > 0 ? oData.results[0] : null;
+                    var aResults = oData.results || [];
+                    var oRecord = null;
+
+                    if (aResults.length > 0) {
+                        oRecord = aResults.find(function (r) {
+                            return r.Prueflos === sPrueflos && r.Plant === sPlant;
+                        });
+
+                        if (!oRecord) {
+                            oRecord = aResults.find(function (r) {
+                                return r.Prueflos === sPrueflos;
+                            });
+                        }
+                    }
 
                     if (oRecord) {
                         var oLocalModel = new JSONModel(oRecord);
                         oView.setModel(oLocalModel);
                     } else {
-                        MessageBox.error("No usage decision data found for Lot: " + sPrueflos + " and Plant: " + sPlant);
+                        MessageBox.error("No usage decision data found for Lot: " + sPrueflos);
                     }
                 },
                 error: function (oError) {

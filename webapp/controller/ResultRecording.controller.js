@@ -45,7 +45,22 @@ sap.ui.define([
                 filters: aFilters,
                 success: function (oData) {
                     oView.setBusy(false);
-                    var oRecord = oData.results && oData.results.length > 0 ? oData.results[0] : null;
+                    var aResults = oData.results || [];
+                    var oRecord = null;
+
+                    // Client-side filter fallback: search through results for exact match
+                    if (aResults.length > 0) {
+                        oRecord = aResults.find(function (r) {
+                            return r.Prueflos === sPrueflos && r.Plant === sPlant;
+                        });
+
+                        // If no compound match, try just Prueflos
+                        if (!oRecord) {
+                            oRecord = aResults.find(function (r) {
+                                return r.Prueflos === sPrueflos;
+                            });
+                        }
+                    }
 
                     if (oRecord) {
                         // Determine editability: if Status is 'X', it might mean locked/decided
@@ -55,7 +70,7 @@ sap.ui.define([
                         var oLocalModel = new JSONModel(oRecord);
                         oView.setModel(oLocalModel);
                     } else {
-                        MessageBox.error("No record found for Lot: " + sPrueflos + " and Plant: " + sPlant);
+                        MessageBox.error("No record found matching Lot: " + sPrueflos + " in the returned results.");
                     }
                 },
                 error: function (oError) {
